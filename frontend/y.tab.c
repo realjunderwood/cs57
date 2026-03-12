@@ -1754,23 +1754,3 @@ yyreturnlab:
 void yyerror(const char *s){
 	fprintf(stderr,"%s\n", s);
 }
-
-extern int semantic_check(astNode *root);
-
-int main(int argc, char* argv[]) {
-	if (argc > 1) yyin = fopen(argv[1], "r");
-	if (yyparse() == 0) { // If parsing succeeded
-		printf("Parsed successfully\n");
-		int result = semantic_check(root);
-		if (result == 0) {
-			printf("Semantics tests passed\n");
-			return 0;
-		} else {
-			printf("Semantics tests failed\n");
-			return 1;
-		}
-	} else {
-		printf("Syntax parsing failed\n");
-		return 1; //syntax parsing failed
-	}
-}

@@ -6,6 +6,7 @@
 #include "frontend/semanticcheck.h"
 #include "llvmirbuilder/irbuilder.h"
 #include "optimizations/optimizer.h"
+#include "assemblygenerator/assemblygen.h"
 #include "llvm-c/Core.h"
 
 extern int yyparse();
@@ -52,22 +53,27 @@ int main(int argc, char* argv[]) {
         optimizeFunction(fn);
     }
 
-    // Generate output filename
+    // Generate output filenames
     std::string inputName = argv[1];
-    std::string outputName;
+    std::string llName, asmName;
     size_t dotPos = inputName.rfind('.');
     if (dotPos != std::string::npos) {
-        outputName = inputName.substr(0, dotPos) + ".ll";
+        llName = inputName.substr(0, dotPos) + ".ll";
+        asmName = inputName.substr(0, dotPos) + ".s";
     } else {
-        outputName = inputName + ".ll";
+        llName = inputName + ".ll";
+        asmName = inputName + ".s";
     }
 
-    // Write module to file
+    // Write LLVM IR to file
     char* errMsg = nullptr;
-    if (LLVMPrintModuleToFile(module, outputName.c_str(), &errMsg)) {
+    if (LLVMPrintModuleToFile(module, llName.c_str(), &errMsg)) {
         fprintf(stderr, "Error writing output: %s\n", errMsg);
         LLVMDisposeMessage(errMsg);
     }
+
+    // Generate assembly
+    generateAssembly(module, asmName.c_str());
 
     // Cleanup
     yylex_destroy();

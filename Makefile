@@ -9,6 +9,7 @@ SRCS = frontend/ast.c frontend/y.tab.c frontend/lex.yy.c \
        frontend/semanticcheck.cpp \
        llvmirbuilder/irbuilder.cpp \
        optimizations/optimizer.cpp \
+       assemblygenerator/assemblygen.cpp \
        main.cpp
 
 TARGET = compiler

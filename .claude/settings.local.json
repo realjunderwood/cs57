@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/opt/homebrew/opt/llvm@17/bin/llvm-config:*)",
+      "Bash(/opt/homebrew/opt/llvm/bin/llvm-config:*)",
+      "Bash(make:*)",
+      "Bash(./compiler frontend/parser_tests/p2.c 2>&1 && cat frontend/parser_tests/p2.s)",
+      "Bash(./compiler assemblygenerator/assembly_gen_tests/square.c 2>&1)"
+    ]
+  }
+}

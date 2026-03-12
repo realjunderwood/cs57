@@ -1,5 +1,5 @@
+#include "optimizer.h"
 #include "llvm-c/Core.h"
-#include "llvm-c/IRReader.h"
 
 #include <cstdio>
 #include <cstdlib>
@@ -372,39 +372,4 @@ void optimizeFunction(LLVMValueRef func) {
     }
 
     deadcodeelim(func); // final
-}
-
-int main(int argc, char** argv) {
-
-    LLVMMemoryBufferRef buf;
-    char* msg = nullptr;
-    if (LLVMCreateMemoryBufferWithContentsOfFile(argv[1], &buf, &msg)) {
-        fprintf(stderr, "File read error %s \n", msg);
-        LLVMDisposeMessage(msg);
-        return 1;
-    }
-
-    // parse IR module
-    LLVMContextRef ctx = LLVMContextCreate();
-    LLVMModuleRef mod;
-    if (LLVMParseIRInContext(ctx, buf, &mod, &msg)) {
-        fprintf(stderr, "Error parsing IR: %s\n", msg);
-        LLVMDisposeMessage(msg);
-        LLVMContextDispose(ctx);
-        return 1;
-    }
-
-    for (LLVMValueRef fn = LLVMGetFirstFunction(mod);
-         fn; fn = LLVMGetNextFunction(fn)) {
-        optimizeFunction(fn);
-    }
-
-    if (LLVMPrintModuleToFile(mod, argv[2], &msg)) {
-        fprintf(stderr, "Error writing output: %s\n", msg);
-        LLVMDisposeMessage(msg);
-    }
-
-    LLVMDisposeModule(mod);
-    LLVMContextDispose(ctx);
-    return 0;
 }
