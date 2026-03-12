@@ -1,8 +1,8 @@
-LLVM_CONFIG = /opt/homebrew/opt/llvm/bin/llvm-config
-BISON = /opt/homebrew/Cellar/bison/3.8.2/bin/bison
+LLVM_CONFIG = llvm-config-18
+BISON = bison
 
 CXX = g++
-CXXFLAGS = $(shell $(LLVM_CONFIG) --cxxflags) -I /opt/homebrew/opt/llvm/include
+CXXFLAGS = $(shell $(LLVM_CONFIG) --cxxflags)
 LDFLAGS = $(shell $(LLVM_CONFIG) --ldflags --libs core)
 
 SRCS = frontend/ast.c frontend/y.tab.c frontend/lex.yy.c \
@@ -17,7 +17,7 @@ TARGET = compiler
 all: $(TARGET)
 
 $(TARGET): $(SRCS)
-	PATH="/opt/homebrew/opt/m4/bin:$$PATH" $(CXX) $(CXXFLAGS) $(SRCS) $(LDFLAGS) -o $(TARGET)
+	$(CXX) $(CXXFLAGS) $(SRCS) $(LDFLAGS) -o $(TARGET)
 
 gen: frontend/parser.y frontend/grammar.lex
 	cd frontend && PATH="/opt/homebrew/opt/m4/bin:$$PATH" $(BISON) -d -y parser.y
