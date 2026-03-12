@@ -5,4 +5,3 @@
 you pass to your function in main.c to test different cases.
 
 4. Note that max_n and sum_n call read function in a loop. So enter integer values when you run the code.
-

@@ -17,4 +17,3 @@ int main(){
 	printf("In main printing return value of test: %d\n", i);
 	return 0;
 }
-

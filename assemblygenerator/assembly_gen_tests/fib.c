@@ -21,4 +21,3 @@ int func(int n){
 	
 	return 1;
 }
-

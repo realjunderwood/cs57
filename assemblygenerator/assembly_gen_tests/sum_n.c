@@ -16,4 +16,3 @@ int func(int n){
 	
 	return sum;
 }
-

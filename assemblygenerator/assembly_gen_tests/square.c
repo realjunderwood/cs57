@@ -6,4 +6,3 @@ int func(int n){
 	sq = n*n;
 	return sq;
 }
-

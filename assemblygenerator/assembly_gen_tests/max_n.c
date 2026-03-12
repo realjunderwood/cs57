@@ -17,4 +17,3 @@ int func(int n){
 	
 	return max;
 }
-

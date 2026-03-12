@@ -11,4 +11,3 @@ int func(int n){
 
 	return res;
 }
-
