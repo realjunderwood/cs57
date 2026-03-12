@@ -44,8 +44,9 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // Build IR
+    // Build IR (note: buildIR mutates the AST, so free it after)
     LLVMModuleRef module = buildIR(root);
+    freeNode(root);
 
     // Optimize all functions
     for (LLVMValueRef fn = LLVMGetFirstFunction(module);
