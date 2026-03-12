@@ -1,0 +1,18 @@
+Build:
+  make
+
+Usage:
+  ./compiler <input.c>
+
+This produces two output files:
+  <input>.ll   - optimized LLVM IR
+  <input>.s    - x86-32 assembly
+
+To assemble and run:
+  clang -m32 <input>.s main.c -o a.out
+  ./a.out
+
+Example:
+  ./compiler assemblygenerator/assembly_gen_tests/square.c
+  clang -m32 assemblygenerator/assembly_gen_tests/square.s assemblygenerator/assembly_gen_tests/main.c -o a.out
+  ./a.out

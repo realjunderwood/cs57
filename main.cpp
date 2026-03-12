@@ -77,6 +77,7 @@ int main(int argc, char* argv[]) {
 
     // Cleanup
     yylex_destroy();
+    freeNode(root);
     LLVMDisposeModule(module);
     LLVMShutdown();
 
