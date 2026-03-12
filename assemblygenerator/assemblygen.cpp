@@ -1,6 +1,7 @@
 #include "assemblygen.h"
 #include "llvm-c/Core.h"
 
+#include <cstdarg>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
